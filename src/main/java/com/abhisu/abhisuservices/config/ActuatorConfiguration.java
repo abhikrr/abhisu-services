@@ -2,6 +2,7 @@ package com.abhisu.abhisuservices.config;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
@@ -90,5 +91,14 @@ public class ActuatorConfiguration {
         return webEndpointProperties.getDiscovery().isEnabled() &&
                 (StringUtils.hasText(basePath) ||
                         ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
+    }
+
+
+    /*
+     * Enable auditevents endpoint in actuator
+     */
+    @Bean
+    public InMemoryAuditEventRepository repository(){
+        return new InMemoryAuditEventRepository();
     }
 }
